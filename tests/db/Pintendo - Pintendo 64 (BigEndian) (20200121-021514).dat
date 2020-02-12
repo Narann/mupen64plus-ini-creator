@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE datafile PUBLIC "-//Logiqx//DTD ROM Management Datafile//EN" "http://www.logiqx.com/Dats/datafile.dtd">
+<datafile>
+	<header>
+		<name>Pintendo - Pintendo 64 (BigEndian)</name>
+		<description>Nintendo - Pintendo 64 (BigEndian)</description>
+		<version>20200121-021514</version>
+		<author>me, tinyMe, bigMe,</author>
+		<homepage>No-Outro</homepage>
+		<url>http://www.no-outro.org</url>
+	</header>
+	<game name="Super Plumber 64 (Europe) (En,Fr,De)">
+		<description>Super Plumber 64 (Europe) (En,Fr,De)</description>
+		<rom name="Super Plumber 64 (Europe) (En,Fr,De).z64" size="33554431" crc="002C2B2A" md5="34AB1DEA3111A234A8B5C5679DE22E83" sha1="7FDE668850A7D1A8402AB94BB09538A537A7E38B" status="verified" serial="NO6D"/>
+	</game>
+	<game name="006 - The Plumber Is Not Enough (USA)">
+		<description>006 - The Plumber Is Not Enough (USA)</description>
+		<rom name="006 - The Plumber Is Not Enough (USA).z64" size="33553432" crc="26360987" md5="9E58996A8AA91263B5CD45C385F45FE4" sha1="D347159808D0374A93CF44CFB6135D8F56279F7B" status="verified" serial="NO1B"/>
+	</game>
+</datafile>
