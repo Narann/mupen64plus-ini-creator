@@ -1,6 +1,57 @@
 import datetime
+import hashlib
+import struct
 import re
 from xml.etree import ElementTree
+
+
+class RomHeader:
+
+    def __init__(self):
+
+        self.init_PI_BSB_DOM1_LAT_REG = None
+        self.init_PI_BSB_DOM1_PGS_REG = None
+        self.init_PI_BSB_DOM1_PWD_REG = None
+        self.init_PI_BSB_DOM1_PGS_REG2 = None
+        self.clock_rate = None
+        self.pc = None
+        self.release = None
+        self.crc_1 = None
+        self.crc_2 = None
+        self.name = None
+        self.manufacturer_id = None
+        self.cartridge_id = None
+        self.country_code = None
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}("{self.name}")'
+
+    @classmethod
+    def from_file(cls, path):
+
+        # read rom header
+        with open(path, "rb") as bf:
+            header = bf.read(64)
+
+        values = struct.unpack('>BBBBIIIIIII20sIIHH', header)
+
+        rom = cls()
+
+        rom.init_PI_BSB_DOM1_LAT_REG = values[0]
+        rom.init_PI_BSB_DOM1_PGS_REG = values[1]
+        rom.init_PI_BSB_DOM1_PWD_REG = values[3]
+        rom.init_PI_BSB_DOM1_PGS_REG2 = values[3]
+        rom.clock_rate = values[4]
+        rom.pc = values[5]
+        rom.release = values[6]
+        rom.crc_1 = values[7]
+        rom.crc_2 = values[8]
+        rom.name = values[11].decode("utf-8").strip()
+        rom.manufacturer_id = values[13]
+        rom.cartridge_id = values[14]
+        rom.country_code = values[15]
+
+        return rom
 
 
 class RomMame:
@@ -220,6 +271,22 @@ def from_mupen64plus_ini(path):
     # "close" last game
     prev_game = games[cur_md5]
     yield prev_game
+
+
+def from_folder(path):
+
+    import os
+    for file_name in os.listdir(path):
+
+        file_path = os.path.join(path, file_name)
+
+        if not os.path.isfile(file_path):
+            continue
+
+        if not file_name.endswith('.z64'):
+            continue
+
+        rom = RomHeader.from_file(file_path)
 
 
 def export_as_mupen64plus_ini(games, path):
