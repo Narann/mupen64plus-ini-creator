@@ -133,7 +133,7 @@ def from_nointro_dat(path):
         rom_node = game_node.find('rom')
         rom = RomNoIntro()
         rom.name = rom_node.get('name')
-        rom.size = rom_node.get('size')
+        rom.size = int(rom_node.get('size'))
         rom.crc = rom_node.get('crc')
         rom.md5 = rom_node.get('md5')
         rom.sha1 = rom_node.get('sha1')
@@ -193,7 +193,7 @@ def from_mupen64plus_ini(path):
             elif key == 'Rumble':
                 game.rumble = value
             elif key == 'CountPerOp':
-                game.counter_per_ops = value
+                game.counter_per_ops = int(value)
             elif key == 'Players':
                 game.players = int(value)
             elif key == 'Mempak':
@@ -205,11 +205,11 @@ def from_mupen64plus_ini(path):
             elif key == 'Transferpak':
                 game.transfer_pak = value
             elif key == 'DisableExtraMem':
-                game.disable_extra_mem = value
+                game.disable_extra_mem = int(value)
             elif key == 'Biopak':
                 game.bio_pak = value
             elif key == 'SiDmaDuration':
-                game.si_dma_duration = value
+                game.si_dma_duration = int(value)
             elif key == 'Cheat0':
                 game.cheat_0 = value
             else:
