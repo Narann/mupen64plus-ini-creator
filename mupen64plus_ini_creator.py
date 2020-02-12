@@ -73,7 +73,7 @@ class GameMupen64Plus:
 
         self.good_name = None
         self.md5 = None
-        self.CRC = None
+        self.crc = None
         self.status = None
         self.rumble = None
         self.players = None
