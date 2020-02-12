@@ -128,7 +128,7 @@ def from_nointro_dat(path):
 
         game = GameNoIntro()
         game.name = game_node.attrib['name']
-        game.description = game_node.get('description')
+        game.description = game_node.find('description').text
 
         rom_node = game_node.find('rom')
         rom = RomNoIntro()
