@@ -1,4 +1,4 @@
-name: Python package
+name: Python utest
 
 on: [push]
 
@@ -18,4 +18,4 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Test tests
       run: |
-        tests/utest.py
+        python tests/utest.py
