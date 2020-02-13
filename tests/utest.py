@@ -8,11 +8,50 @@ sys.path.insert(0, os.path.abspath('..'))
 import mupen64plus_ini_creator as m64p_ini
 
 
+mame_path = 'db/mame_n64.xml'
 nointro_path = 'db/Pintendo - Pintendo 64 (BigEndian) (20200121-021514).dat'
 m64p_path = 'db/mupen64plus.ini'
 
 
-class TestUniqueStringRegexes(unittest.TestCase):
+class Tests(unittest.TestCase):
+
+    def test_mame(self):
+
+        mame_games = list(m64p_ini.from_mame_xml(mame_path))
+
+        self.assertEqual(len(mame_games), 2)
+
+        # general test
+        for game in mame_games:
+
+            self.assertIsInstance(game, m64p_ini.GameMame)
+
+            self.assertIsInstance(game.name, str)
+            self.assertIsInstance(game.description, str)
+            self.assertIsNotNone(game.rom)
+
+            rom = game.rom
+
+            self.assertIsInstance(rom, m64p_ini.RomMame)
+            self.assertIsNotNone(rom.name)
+            self.assertIsInstance(rom.size, int)
+            self.assertIsInstance(rom.crc, str)
+            self.assertIsInstance(rom.sha1, str)
+
+        # deep test first game
+        game = mame_games[0]
+        self.assertEqual(game.name, "spl64")
+        self.assertEqual(game.description,
+                         "Super Plumber 64 (Europe) (En,Fr,De)")
+        self.assertEqual(game.serial, ["NOS-NGEP-AOS", "NOS-NGEP-EOR"])
+        self.assertEqual(game.release, "19980807")
+        self.assertEqual(game.alt_title, "Tototakiki")
+
+        self.assertEqual(game.rom.name, "nos-ngep-0.o1")
+        self.assertEqual(game.rom.size, 12582911)
+        self.assertEqual(game.rom.crc, "7425be2d")
+        self.assertEqual(game.rom.sha1,
+                         "63627dba22ae2b357c0e370e68dc5af56eeb0a24")
 
     def test_nointro(self):
 

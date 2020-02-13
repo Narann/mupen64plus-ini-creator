@@ -79,6 +79,8 @@ class GameMame:
         self.year = None
         self.publisher = None
         self.serial = None
+        self.release = None
+        self.alt_title = None
         self.rom = None
 
     def __repr__(self):
@@ -151,19 +153,34 @@ def from_mame_xml(path):
     for sw_node in root.findall('software'):
 
         game = GameMame()
-        game.description = sw_node.get('description')
-        game.name = sw_node.attrib['name']
-        game.clone_of = sw_node.attrib.get('cloneof')
-        game.description = sw_node.get('description')
-        game.year = sw_node.get('year')
-        game.publisher = sw_node.get('publisher')
+        game.name = sw_node.get('name')
+        game.clone_of = sw_node.get('cloneof')
+        game.description = sw_node.find('description').text
+        game.year = sw_node.find('year').text
+        game.publisher = sw_node.find('publisher').text
+
+        for info in sw_node.findall('info'):
+
+            name = info.get('name')
+            value = info.get('value')
+
+            if name == 'serial':
+                game.serial = value.split(', ')
+
+            if name == 'release':
+                game.release = value
+
+            if name == 'alt_title':
+                game.alt_title = value
 
         rom_node = sw_node.find('part/dataarea/rom')
+
         rom = RomMame()
         rom.name = rom_node.get('name')
-        rom.size = rom_node.get('size')
+        rom.size = int(rom_node.get('size'))
         rom.crc = rom_node.get('crc')
         rom.sha1 = rom_node.get('sha1')
+
         game.rom = rom
 
         yield game

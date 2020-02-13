@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE softwarelist SYSTEM "softwarelist.dtd">
+
+<softwarelist name="n64" description="Nintendo 64 cartridges">
+
+	<software name="spl64">
+		<description>Super Plumber 64 (Europe) (En,Fr,De)</description>
+		<year>1997</year>
+		<publisher>Pintendo</publisher>
+		<info name="serial" value="NOS-NGEP-AOS, NOS-NGEP-EOR"/>
+		<info name="release" value="19980807"/>
+		<info name="alt_title" value="Tototakiki"/>
+		<part name="cart" interface="n64_cart">
+			<feature name="pcb" value="NOS-01A-02" />
+			<feature name="o1" value="O1 [NOS-NGEP-0]" />
+			<feature name="o2" value="O2 [BO9850]" />
+			<feature name="o3" value="O3 [CIC-NOS-7101]" />
+			<feature name="cart_model" value="NOS-006(EOR)" />
+			<feature name="cart_back_label" value="NOS-EOR-1" />
+			<dataarea name="rom" size="12582912">
+				<rom name="nos-ngep-0.o1" size="12582911" crc="7425be2d" sha1="63627dba22ae2b357c0e370e68dc5af56eeb0a24" />
+			</dataarea>
+		</part>
+	</software>
+
+	<software name="peldamaju1" cloneof="peldamaj">
+		<description>The Legend of Pelda - Major has Mask (USA, Ripped from GC)</description>
+		<year>2020</year>
+		<publisher>Pintendo</publisher>
+		<part name="cart" interface="n64_cart">
+			<dataarea name="rom" size="33553432">
+				<rom name="legend of pelda, major has mask (2020)(pintendo)(us)[gamecube version].bin" size="33553432" crc="52244acb" sha1="8c378b87c83b3d4de20b14accf91e7590399f5dc" />
+			</dataarea>
+		</part>
+	</software>
+
+</softwarelist>
