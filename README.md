@@ -1,3 +1,5 @@
+![Python utest](https://github.com/Narann/mupen64plus-ini-creator/workflows/Python%20utest/badge.svg)
+
 # mupen64plus-ini-creator
 
 Simple python script to ROM information from various sources and write them as new mupen64plus.ini file.
