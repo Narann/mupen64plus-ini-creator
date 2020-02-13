@@ -305,6 +305,8 @@ def from_folder(path):
 
         rom = RomHeader.from_file(file_path)
 
+        yield rom
+
 
 def export_as_mupen64plus_ini(games, path):
     """Write mupen64plus INI file for given games to given path destination

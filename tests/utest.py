@@ -11,6 +11,7 @@ import mupen64plus_ini_creator as m64p_ini
 mame_path = 'db/mame_n64.xml'
 nointro_path = 'db/Pintendo - Pintendo 64 (BigEndian) (20200121-021514).dat'
 m64p_path = 'db/mupen64plus.ini'
+rom_path = 'rom'
 
 
 class Tests(unittest.TestCase):
@@ -129,7 +130,51 @@ class Tests(unittest.TestCase):
         self.assertEqual(game.disable_extra_mem, 1)
         self.assertEqual(game.bio_pak, "Yes")
         self.assertEqual(game.si_dma_duration, 100)
-        self.assertEqual(game.cheat_0, "D109A814 0320,8109A814 0000,D109A816 F809,8109A816 0000")
+        self.assertEqual(
+            game.cheat_0,
+            "D109A814 0320,8109A814 0000,D109A816 F809,8109A816 0000")
+
+    def test_rom_header(self):
+
+        roms = list(m64p_ini.from_folder(rom_path))
+
+        self.assertEqual(len(roms), 1)
+
+        # general test
+        for rom in roms:
+
+            self.assertIsInstance(rom, m64p_ini.RomHeader)
+
+            self.assertIsInstance(rom.init_PI_BSB_DOM1_LAT_REG, int)
+            self.assertIsInstance(rom.init_PI_BSB_DOM1_PGS_REG, int)
+            self.assertIsInstance(rom.init_PI_BSB_DOM1_PWD_REG, int)
+            self.assertIsInstance(rom.init_PI_BSB_DOM1_PGS_REG2, int)
+            self.assertIsInstance(rom.clock_rate, int)
+            self.assertIsInstance(rom.pc, int)
+            self.assertIsInstance(rom.release, int)
+            self.assertIsInstance(rom.crc_1, int)
+            self.assertIsInstance(rom.crc_2, int)
+            self.assertIsInstance(rom.name, str)
+            self.assertIsInstance(rom.manufacturer_id, int)
+            self.assertIsInstance(rom.cartridge_id, int)
+            self.assertIsInstance(rom.country_code, int)
+
+        # deep test first game
+        rom = roms[0]
+
+        self.assertEqual(rom.init_PI_BSB_DOM1_LAT_REG, 128)
+        self.assertEqual(rom.init_PI_BSB_DOM1_PGS_REG, 55)
+        self.assertEqual(rom.init_PI_BSB_DOM1_PWD_REG, 64)
+        self.assertEqual(rom.init_PI_BSB_DOM1_PGS_REG2, 64)
+        self.assertEqual(rom.clock_rate, 15)
+        self.assertEqual(rom.pc, 2149580800)
+        self.assertEqual(rom.release, 5188)
+        self.assertEqual(rom.crc_1, 780044604)
+        self.assertEqual(rom.crc_2, 1315485250)
+
+        self.assertEqual(rom.manufacturer_id, 0)
+        self.assertEqual(rom.cartridge_id, 0)
+        self.assertEqual(rom.country_code, 0)
 
 
 if __name__ == '__main__':
